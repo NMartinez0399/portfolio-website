@@ -64,6 +64,7 @@ export const StarBackground = () => {
     };
 
     return (
+        // maps through stars and displays random amount with pulse animation
         <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
             {stars.map((star) => (
                 <div 
@@ -79,6 +80,7 @@ export const StarBackground = () => {
                 }} />
             ))}
 
+            {/* sorts through metoers and randomly displays */}
             {meteors.map((meteor) => (
                 <div 
                     key={meteor.id} 

@@ -3,9 +3,11 @@ import { useEffect, useState } from "react"
 import { cn } from '@/lib/utils';
 
 export const ThemeToggle = () => {
+    // variables used to check if dark mode is on
     const [isDarkMode, setIsDarkMode] = useState(false);
 
     useEffect(() => {
+        // stores last used theme option and uses it next time user loads page
         const storedTheme = localStorage.getItem("theme");
         if (storedTheme === "dark") {
             setIsDarkMode(true);
@@ -31,6 +33,7 @@ export const ThemeToggle = () => {
     };
 
     return (
+        // light mode / dark mode buttons
         <button 
             onClick={toggleTheme}
             className={cn(
@@ -40,9 +43,9 @@ export const ThemeToggle = () => {
         >
             {" "}
             {isDarkMode ? (
-                <Sun className="h-6 w-6 text-yellow-300" />
+                <Sun className="h-6 w-6 text-yellow-300" /> // sun icon
             ) : (
-                <Moon className="h-6 w-6 text-blue-900" />
+                <Moon className="h-6 w-6 text-blue-900" /> // moon icon
             )}
         </button>
     );

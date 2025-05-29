@@ -2,6 +2,7 @@ import { Menu, X } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { useEffect, useState } from 'react';
 
+// sections link object array
 const navItems = [
     {name: "Home", href: "#hero"},
     {name: "About", href: "#about"},
@@ -11,7 +12,9 @@ const navItems = [
 ];
 
 export const Navbar = () => {
+    // checks and sets if user has scrolled
     const [isScrolled, setIsScrolled] = useState(false);
+    // checks and sets if menu is open
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     useEffect(() => {
@@ -27,11 +30,13 @@ export const Navbar = () => {
 
      return (
      <nav 
+        // creates smoother scroll trasition
         className={cn(
             "fixed w-full z-40 transition-all duration-300", 
             isScrolled ? 'py-3 bg-background/80 backdrop-blur-md shadow-xs' : 'py-5'
         )} 
      >
+        {/* top left name display that links to hero section */}
         <div className='container flex items-center justify-between'>
             <a 
                 className='text-xl font-bold text-primary flex items-center'
@@ -45,6 +50,7 @@ export const Navbar = () => {
 
             {/* desktop nav */}
             <div className='hidden md:flex space-x-8'>
+                {/* sorts through navItems and araay and creates a link for each */}
                 {navItems.map((item, key) => (
                     <a 
                         key={key} 
@@ -58,6 +64,7 @@ export const Navbar = () => {
 
             {/* mobile nav */}
 
+            {/* button that opens and closes menu navBar for smaller screens */}
             <button 
                 onClick={() => setIsMenuOpen((prev) => !prev)}
                 className='md:hidden p-2 text-foreground z-50'
@@ -66,12 +73,14 @@ export const Navbar = () => {
                 {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
 
+            {/* mobile menu display details (hides background to focus on menu options) */}
             <div className={cn(
                 'fixed inset-0 bg-background/95 backdrop-blur-md z-40 flex flex-col items-center justify-center',
                 'transition-all duration-300 md:hidden',
                 isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
                 )}
             >
+                {/* maps through navItems area and displays vertically for small screens */}
                 <div className='flex flex-col space-y-8 text-xl'>
                     {navItems.map((item, key) => (
                         <a 
