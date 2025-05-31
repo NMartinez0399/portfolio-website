@@ -7,10 +7,28 @@ export const ContactSection = () => {
     const { toast } = useToast(); // toast ui
     const [isSubmitting, setIsSubmitting] = useState(false); // to checks if form is submitting
 
-    const handleSubmit = (event) => {
-        event.preventDefault(); // prevents from refreshing website
-
+    const onSubmit = async (event) => {
+        event.preventDefault();
         setIsSubmitting(true);
+        const formData = new FormData(event.target);
+
+        formData.append('access_key', '3dcd3ca2-3f99-4ae9-8a9b-786d9f8af64b');
+
+        const object = Object.fromEntries(formData);
+        const json = JSON.stringify(object);
+
+        const res = await fetch ("https://api.web3forms.com/submit", {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+                Accept: 'application/json'
+            },
+            body: json,
+        }).then((res => res.json));
+
+        if (res.success) {
+            console.log('Success', res);
+        }
 
         setTimeout(() => {
             toast({
@@ -19,8 +37,8 @@ export const ContactSection = () => {
             });
             setIsSubmitting(false);
         }, 1500); // imitates send message load time by 1.5secs
-
     };
+
     return (
         <section 
             id='contact' 
@@ -110,11 +128,11 @@ export const ContactSection = () => {
                     {/* Contact form */}
                     <div 
                         className='bg-card p-8 rounded-lg shadow-xs' 
-                        onSubmit={handleSubmit} // calls toast function
+                        onSubmit={onSubmit} // calls toast function
                     >
                         <h3 className='text-2-xl font-semibold mb-6'> Send A Message</h3>
 
-                        <form className='space-y-6'>
+                        <form className='space-y-6'  >
                             {/* user name input section */}
                             <div>
                                 <label 
